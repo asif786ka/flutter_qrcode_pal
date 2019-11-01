@@ -1,0 +1,52 @@
+name: QrBoss
+description: A qr code app.
+
+
+version: 1.0.0+3
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  qr_flutter: ^3.0.1
+  ads: ^1.2.0
+  qr_code_scanner: ^0.0.12
+  connectivity: ^0.4.4
+  save_in_gallery: ^0.1.3
+  material_design_icons_flutter:
+  url_launcher: ^5.2.3
+  # flutter_launcher_icons: ^0.7.3
+  firebase_messaging: ^5.1.6
+ 
+  flutter_native_admob: 
+    git:
+      url: git://github.com/cimplesid/flutter_native_admob
+# flutter_icons:
+#   android: "launcher_icon" 
+#   ios: true
+#   image_path: "images/1.png"
+  # flutter_automation: ^1.3.0
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+
+flutter:
+
+
+  uses-material-design: true
+
+ 
+  # assets:
+  #  - images/
+  #  - images/a_dot_ham.jpeg
+
+
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
