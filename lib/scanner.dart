@@ -1,11 +1,15 @@
+import 'package:url_launcher/url_launcher.dart';
+
+import 'history.dart';
+import 'history/dbHelper.dart';
+import 'history/history.dart';
+import 'richtext.dart';
 import 'package:ads/ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_code_scanner/qr_scanner_overlay_shape.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-
-import 'richtext.dart';
 
 class QqrScannerScreen extends StatefulWidget {
   final PageController pageController;
@@ -20,7 +24,6 @@ class QqrScannerScreen extends StatefulWidget {
 
 class _QqrScannerScreenState extends State<QqrScannerScreen> {
   var qrText = "";
-
   var cameraState = front_camera;
   QRViewController controller;
   var flashState = flash_on;
@@ -42,15 +45,37 @@ class _QqrScannerScreenState extends State<QqrScannerScreen> {
     return back_camera == current;
   }
 
+  makeTypeFromText(String text) {
+    final matcher = RegExp(
+        r"(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)");
+    if (text.contains('WIFI:T:WPA;S:') || text.contains('WIFI:S:'))
+      return 'Wifi';
+    else if (text.contains('mailto:') && text.contains('@'))
+      return 'Email';
+    else if (text.contains('http://maps.google.com') || text.contains('geo:'))
+      return 'Location';
+    else if (text.contains('MECARD:N:') || text.contains('BEGIN:VCARD'))
+      return 'Contact';
+    else if (text.contains(matcher))
+      return 'Url';
+    else
+      return 'Text';
+  }
+
+  List<History> historys = [];
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         qrText = scanData;
       });
+      History history = History()
+        ..type = makeTypeFromText(qrText)
+        ..data = qrText;
+      historys.add(history);
 
+      PreferenceHelper().storeHistory(historys);
       show();
-      //  dispose();
       controller.pauseCamera();
       persistentBottomSheetController.closed.then((s) {
         controller.resumeCamera();
@@ -99,11 +124,62 @@ class _QqrScannerScreenState extends State<QqrScannerScreen> {
                 },
                 icon: Icon(MdiIcons.contentCopy),
               ),
-              Text('If link then click pn it to visit')
+              getButtonByData(qrText)
             ],
           ),
         );
       },
+    );
+  }
+
+  getButtonByData(data) {
+    var type = makeTypeFromText(data);
+
+    switch (type) {
+      case 'Wifi':
+        return buildButton(child: 'Connect this wifi');
+      case 'Text':
+        return SizedBox();
+      case 'Url':
+        return buildButton(
+            child: 'Visit',
+            onPressed: () async {
+              var url = data;
+              if (await canLaunch(url)) {
+                await launch(url);
+              } else {
+                throw 'Could not launch $url';
+              }
+            });
+      case 'Location':
+        return buildButton(
+            child: 'Open Maps',
+            onPressed: () async {
+              var url = data;
+              if (await canLaunch(url)) {
+                await launch(url);
+              } else {
+                throw 'Could not launch $url';
+              }
+            });
+      case 'Contact':
+        return SizedBox();
+      case 'Email':
+        return buildButton(
+            child: 'Send Mail',
+            onPressed: () async {
+              var url = data;
+              await launch(url);
+            });
+      default:
+        return SizedBox();
+    }
+  }
+
+  buildButton({onPressed, String child}) {
+    return OutlineButton(
+      child: Text(child),
+      onPressed: onPressed,
     );
   }
 
@@ -205,6 +281,21 @@ class _QqrScannerScreenState extends State<QqrScannerScreen> {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
+            ),
+            Positioned(
+              bottom: 12,
+              right: 8,
+              child: IconButton(
+                  icon: Icon(
+                    Icons.history,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => HistoryScreen()));
+                  }),
             ),
             Positioned(
               bottom: 8,

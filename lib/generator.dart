@@ -1,16 +1,14 @@
-import 'package:ads/ads.dart';
-
 import 'about.dart';
+import 'category.dart';
 import 'dart:ui' as ui;
 import 'dart:typed_data';
+import 'package:ads/ads.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-
 import 'package:save_in_gallery/save_in_gallery.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import 'category.dart';
 
 class GeneratorScreen extends StatefulWidget {
   final String cat;
@@ -177,7 +175,7 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                   child: Text(
                       qr != null ? 'Save to gallery' : 'Enter to generate'),
                   onPressed: () {
-                    qr != null ? takeScreenShot() : qr;
+                    if (qr != null) takeScreenShot();
                   },
                 )
               ],
@@ -207,7 +205,7 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                   child: Text(
                       qr != null ? 'Save to gallery' : 'Enter to generate'),
                   onPressed: () {
-                    qr != null ? takeScreenShot() : null;
+                    if (qr != null) takeScreenShot();
                   },
                 )
               ],
@@ -237,7 +235,7 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                   child: Text(
                       qr != null ? 'Save to gallery' : 'Enter to generate'),
                   onPressed: () {
-                    qr != null ? takeScreenShot() : qr;
+                    if (qr != null) takeScreenShot();
                   },
                 )
               ],
@@ -282,7 +280,7 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                   child: Text(
                       qr != null ? 'Save to gallery' : 'Enter to generate'),
                   onPressed: () {
-                    qr != null ? takeScreenShot() : null;
+                    if (qr != null) takeScreenShot();
                   },
                 )
               ],
@@ -304,7 +302,7 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                     onChanged: (v) {
                       setState(() {
                         qr1 = v;
-                        qr = "geo:$qr1,$qr2";
+                        qr = "http://maps.google.com?q=$qr1,$qr2";
                       });
                     },
                   ),
@@ -319,7 +317,7 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                     onChanged: (v) {
                       setState(() {
                         qr = v;
-                        qr = "geo:$qr1,$qr2";
+                        qr = "http://maps.google.com?q=$qr1,$qr2";
                       });
                     },
                   ),
@@ -328,7 +326,7 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                   child: Text(
                       qr != null ? 'Save to gallery' : 'Enter to generate'),
                   onPressed: () {
-                    qr != null ? takeScreenShot() : null;
+                    if (qr != null) takeScreenShot();
                   },
                 )
               ],
@@ -358,7 +356,7 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
                   child: Text(
                       qr != null ? 'Save to gallery' : 'Enter to generate'),
                   onPressed: () {
-                    qr != null ? takeScreenShot() : qr;
+                    if (qr != null) takeScreenShot();
                   },
                 )
               ],
