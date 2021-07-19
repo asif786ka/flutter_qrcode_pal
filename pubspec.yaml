@@ -1,5 +1,5 @@
-name: QrBoss
-description: A qr code app.
+name: QrCodePal
+description: This app helps to create qr code for texts, images, contacts, emails, location and more.
 
 
 version: 1.0.0+3

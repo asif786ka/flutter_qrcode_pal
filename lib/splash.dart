@@ -67,8 +67,8 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
           child: PageView(
             children: <Widget>[
               getPage(
-                title: 'Qr Boss',
-                subtitle: 'The ultimate qr scanner',
+                title: 'QrCodePal',
+                subtitle: 'The ultimate qrcode pal',
               ),
             ],
           ),

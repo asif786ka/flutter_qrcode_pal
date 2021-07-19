@@ -1,6 +1,7 @@
 import 'dart:convert';
-import 'package:QrBoss/history/history.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'history.dart';
 
 class PreferenceHelper {
   SharedPreferences _preferences;

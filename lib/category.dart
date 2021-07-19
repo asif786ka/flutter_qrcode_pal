@@ -8,27 +8,20 @@ import 'generator.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen(
-      {Key key, this.pageController, this.appAds, this.hasConnection})
+      {Key key, this.pageController})
       : super(key: key);
 
-  final Ads appAds;
   final PageController pageController;
-  final bool hasConnection;
 
   @override
   _CategoryScreenState createState() => _CategoryScreenState();
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
-  final _nativeAd = NativeAdmob();
-  var appId = 'ca-app-pub-7341745842244329~6130450429';
-
-  var adUnitID = 'ca-app-pub-7341745842244329/4001420033';
 
   @override
   void initState() {
     super.initState();
-    _nativeAd.initialize(appID: appId);
   }
 
   buildButton(BuildContext context, icon, text, {color = Colors.blue}) {
@@ -41,7 +34,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       cat: text,
                       color: color,
                       iconData: icon,
-                      appAds: widget.appAds,
                     )));
       },
       child: Card(
@@ -167,36 +159,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         color: Colors.cyan),
                   ],
                 ),
-                widget.hasConnection
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          Container(
-                            constraints:
-                                BoxConstraints(maxWidth: 150, maxHeight: 150),
-                            child: NativeAdmobBannerView(
-                              onCreate: (a) {},
-                              adUnitID: adUnitID,
-                              style: BannerStyle.light,
-                              contentPadding:
-                                  EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 2.0),
-                            ),
-                          ),
-                          Container(
-                            constraints:
-                                BoxConstraints(maxWidth: 150, maxHeight: 150),
-                            child: NativeAdmobBannerView(
-                              onCreate: (a) {},
-                              adUnitID: adUnitID,
-                              style: BannerStyle.light,
-                              showMedia: true,
-                              contentPadding:
-                                  EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 2.0),
-                            ),
-                          ),
-                        ],
-                      )
-                    : SizedBox()
               ],
             ),
           ],

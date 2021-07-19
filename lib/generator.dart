@@ -28,17 +28,17 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
 
   var bannerUnitId = 'ca-app-pub-7341745842244329/3804504135';
 
-  Ads ads;
+  //Ads ads;
   @override
   void initState() {
     super.initState();
-    widget.appAds.showBannerAd();
+    //widget.appAds.showBannerAd();
   }
 
   @override
   void dispose() {
     super.dispose();
-    widget.appAds.dispose();
+    //widget.appAds.dispose();
   }
 
   final _imageSaver = ImageSaver();
@@ -378,7 +378,7 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
     pngBytes = byteData.buffer.asUint8List();
     print(pngBytes);
     final res = await _imageSaver.saveImage(
-        imageBytes: pngBytes, directoryName: 'qrboss');
+        imageBytes: pngBytes, directoryName: 'qrcodepal');
     res
         ? skey.currentState.showSnackBar(SnackBar(
             content: Text('Sucessfully saved'),
@@ -388,7 +388,7 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
             content: Text('Something went wrong  try again'),
             backgroundColor: Colors.red,
           ));
-    widget.appAds.showFullScreenAd();
+    //widget.appAds.showFullScreenAd();
   }
 
   generate(message) {

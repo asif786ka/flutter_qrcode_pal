@@ -1,6 +1,5 @@
 import 'package:url_launcher/url_launcher.dart';
 
-import 'history.dart';
 import 'history/dbHelper.dart';
 import 'history/history.dart';
 import 'richtext.dart';
@@ -291,10 +290,7 @@ class _QqrScannerScreenState extends State<QqrScannerScreen> {
                     color: Colors.white,
                   ),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => HistoryScreen()));
+
                   }),
             ),
             Positioned(

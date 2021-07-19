@@ -158,9 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
               has: hasConnection,
             ),
             CategoryScreen(
-              pageController: pageController,
-              appAds: appAds,
-              hasConnection: hasConnection,
+              pageController: pageController
             )
           ],
           controller: pageController,
